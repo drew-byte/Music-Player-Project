@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Main {
 
@@ -59,13 +61,13 @@ public class Main {
 		panel.setLayout(null);
 				
 		
-		JButton btnNewButton = new JButton("Select");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton select = new JButton("Select");
+		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(10, 11, 364, 47);
-		panel.add(btnNewButton);
+		select.setBounds(10, 11, 364, 47);
+		panel.add(select);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.controlShadow);
@@ -77,82 +79,79 @@ public class Main {
 		lblNewLabel.setBounds(139, 28, 85, 14);
 		panel_1.add(lblNewLabel);
 		
-		JButton btnNewButton_1 = new JButton("Back");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton back = new JButton("Back");
+		back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(10, 154, 89, 47);
-		panel.add(btnNewButton_1);
+		back.setBounds(10, 154, 89, 47);
+		panel.add(back);
 		
-		JButton btnNewButton_1_1 = new JButton("Play/Pause");
-		btnNewButton_1_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				boolean i = true;
-				if(i)
+		
+		
+		JButton playpause = new JButton("Play/Pause");
+		playpause.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()%2==1)
 				{
-					File file = new File("amogusModified.wav");
-					AudioInputStream audio;
 					try {
-						audio = AudioSystem.getAudioInputStream(file);
-						Clip clip;
-						try {
-							clip = AudioSystem.getClip();
-							clip.open(audio);
-							
+						AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Shane\\Documents\\Github\\java_code\\JavaAlgo\\music\\twice_wil.wav").getAbsoluteFile());
+						Clip clip = AudioSystem.getClip();
+						clip.open(audioInputStream);
+						if(e.getClickCount()%2==1)
+						{
 							clip.start();
-						} catch (LineUnavailableException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+						}
+						else
+						{
+							clip.stop();
 						}
 						
-					} catch (UnsupportedAudioFileException e1) {
+						
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					i = false;
+					} 
+					
 					
 				}
 				else
 				{
-					File file = new File("amogusModified.wav");
-					AudioInputStream audio;
 					try {
-						audio = AudioSystem.getAudioInputStream(file);
-						Clip clip;
-						try {
-							clip = AudioSystem.getClip();
-							clip.open(audio);
-							
+						AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Shane\\Documents\\Github\\java_code\\JavaAlgo\\music\\twice_wil.wav").getAbsoluteFile());
+						Clip clip = AudioSystem.getClip();
+						clip.open(audioInputStream);
+						if(e.getClickCount()%2==0)
+						{
+							clip.stop();
+						}
+						else
+						{
 							clip.start();
-						} catch (LineUnavailableException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						}
 						
-					} catch (UnsupportedAudioFileException e1) {
+						
+					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					} 
 					
 				}
-				
-				
+					
+				//my algorithm in this sucks i cant solve 
+			
 			}
 		});
-		btnNewButton_1_1.setBounds(148, 154, 89, 47);
-		panel.add(btnNewButton_1_1);
 		
-		JButton btnNewButton_1_2 = new JButton("Next");
-		btnNewButton_1_2.setBounds(285, 154, 89, 47);
-		panel.add(btnNewButton_1_2);
+
+		
+	
+		playpause.setBounds(148, 154, 89, 47);
+		panel.add(playpause);
+		
+		JButton next = new JButton("Next");
+		next.setBounds(285, 154, 89, 47);
+		panel.add(next);
 		
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
