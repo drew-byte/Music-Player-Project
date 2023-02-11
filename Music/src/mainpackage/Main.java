@@ -90,21 +90,27 @@ public class Main {
 		
 		
 		JButton playpause = new JButton("Play/Pause");
-		playpause.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()%2==1)
-				{
+		playpause.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = 0;
+				boolean playing = true;
+				
 					try {
-						AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Shane\\Documents\\Github\\java_code\\JavaAlgo\\music\\twice_wil.wav").getAbsoluteFile());
 						Clip clip = AudioSystem.getClip();
-						clip.open(audioInputStream);
-						if(e.getClickCount()%2==1)
+						
+						count++;
+						if(count%2==1 && playing)
 						{
+							AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Shane\\Documents\\Github\\java_code\\JavaAlgo\\music\\twice_wil.wav").getAbsoluteFile());
+							
+							clip.open(audioInputStream);
 							clip.start();
+							playing = false;
 						}
-						else
+						else if(playing==false)
 						{
 							clip.stop();
+							playing = true;
 						}
 						
 						
@@ -115,33 +121,10 @@ public class Main {
 					
 					
 				}
-				else
-				{
-					try {
-						AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Shane\\Documents\\Github\\java_code\\JavaAlgo\\music\\twice_wil.wav").getAbsoluteFile());
-						Clip clip = AudioSystem.getClip();
-						clip.open(audioInputStream);
-						if(e.getClickCount()%2==0)
-						{
-							clip.stop();
-						}
-						else
-						{
-							clip.start();
-						}
-						
-						
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} 
-					
-				}
-					
-				//my algorithm in this sucks i cant solve 
 			
-			}
 		});
+		
+
 		
 
 		
